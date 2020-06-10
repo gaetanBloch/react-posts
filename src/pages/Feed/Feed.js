@@ -9,6 +9,8 @@ import Loader from '../../components/Loader/Loader';
 import ErrorHandler from '../../components/ErrorHandler/ErrorHandler';
 import './Feed.css';
 
+const URL_PREFIX = 'http://localhost:8080/feed';
+
 class Feed extends Component {
   state = {
     isEditing: false,
@@ -50,7 +52,7 @@ class Feed extends Component {
       page--;
       this.setState({ postPage: page });
     }
-    fetch('http://localhost:8080/feed/posts')
+    fetch(URL_PREFIX + '/posts')
       .then(res => {
         if (res.status !== 200) {
           throw new Error('Failed to fetch posts.');
@@ -72,7 +74,7 @@ class Feed extends Component {
     fetch('URL')
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
-          throw new Error("Can't update status!");
+          throw new Error('Can\'t update status!');
         }
         return res.json();
       })
@@ -106,12 +108,19 @@ class Feed extends Component {
       editLoading: true
     });
     // Set up data (with image!)
-    let url = 'URL';
+    let url = URL_PREFIX + '/posts';
+    let method = 'POST';
     if (this.state.editPost) {
       url = 'URL';
     }
 
-    fetch(url)
+    fetch(url, {
+      method,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(postData)
+    })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
           throw new Error('Creating or editing a post failed!');
@@ -119,6 +128,7 @@ class Feed extends Component {
         return res.json();
       })
       .then(resData => {
+        console.log(resData);
         const post = {
           _id: resData.post._id,
           title: resData.post.title,
