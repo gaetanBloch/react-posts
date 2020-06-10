@@ -121,7 +121,8 @@ class Feed extends Component {
     let url = URL_PREFIX + 'feed/posts';
     let method = 'POST';
     if (this.state.editPost) {
-      url = 'URL';
+      url = URL_PREFIX + 'feed/posts/' + this.state.editPost._id;
+      method = 'PUT'
     }
 
     fetch(url, { method, body: formData })
