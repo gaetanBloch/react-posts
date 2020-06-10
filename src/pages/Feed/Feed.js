@@ -8,7 +8,7 @@ import Paginator from '../../components/Paginator/Paginator';
 import Loader from '../../components/Loader/Loader';
 import ErrorHandler from '../../components/ErrorHandler/ErrorHandler';
 import './Feed.css';
-import { URL_PREFIX } from '../Utils';
+import { URL_POSTS, URL_PREFIX } from '../Utils';
 
 class Feed extends Component {
   state = {
@@ -51,7 +51,7 @@ class Feed extends Component {
       page--;
       this.setState({ postPage: page });
     }
-    fetch(URL_PREFIX + 'feed/posts')
+    fetch(URL_PREFIX + URL_POSTS)
       .then(res => {
         if (res.status !== 200) {
           throw new Error('Failed to fetch posts.');
@@ -64,7 +64,7 @@ class Feed extends Component {
             return {
               ...post,
               imagePath: post.imageUrl
-            }
+            };
           }),
           totalPosts: resData.totalItems,
           postsLoading: false
@@ -118,11 +118,11 @@ class Feed extends Component {
     formData.append('content', postData.content);
     formData.append('image', postData.image);
 
-    let url = URL_PREFIX + 'feed/posts';
+    let url = URL_PREFIX + URL_POSTS;
     let method = 'POST';
     if (this.state.editPost) {
-      url = URL_PREFIX + 'feed/posts/' + this.state.editPost._id;
-      method = 'PUT'
+      url = URL_PREFIX + URL_POSTS + this.state.editPost._id;
+      method = 'PUT';
     }
 
     fetch(url, { method, body: formData })
@@ -176,7 +176,7 @@ class Feed extends Component {
 
   deletePostHandler = postId => {
     this.setState({ postsLoading: true });
-    fetch('URL')
+    fetch(URL_PREFIX + URL_POSTS + postId, { method: 'DELETE' })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
           throw new Error('Deleting a post failed!');
