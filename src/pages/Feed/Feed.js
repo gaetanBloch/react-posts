@@ -8,8 +8,7 @@ import Paginator from '../../components/Paginator/Paginator';
 import Loader from '../../components/Loader/Loader';
 import ErrorHandler from '../../components/ErrorHandler/ErrorHandler';
 import './Feed.css';
-
-const URL_PREFIX = 'http://localhost:8080/feed';
+import { URL_PREFIX } from '../Utils';
 
 class Feed extends Component {
   state = {
@@ -52,7 +51,7 @@ class Feed extends Component {
       page--;
       this.setState({ postPage: page });
     }
-    fetch(URL_PREFIX + '/posts')
+    fetch(URL_PREFIX + 'feed/posts')
       .then(res => {
         if (res.status !== 200) {
           throw new Error('Failed to fetch posts.');
@@ -108,7 +107,7 @@ class Feed extends Component {
       editLoading: true
     });
     // Set up data (with image!)
-    let url = URL_PREFIX + '/posts';
+    let url = URL_PREFIX + 'feed/posts';
     let method = 'POST';
     if (this.state.editPost) {
       url = 'URL';
