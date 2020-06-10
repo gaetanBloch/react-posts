@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Image from '../../../components/Image/Image';
 import './SinglePost.css';
-import { URL_PREFIX } from '../../Utils';
+import { URL_PREFIX } from '../../../utils';
 
 class SinglePost extends Component {
   state = {

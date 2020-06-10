@@ -8,7 +8,7 @@ import Paginator from '../../components/Paginator/Paginator';
 import Loader from '../../components/Loader/Loader';
 import ErrorHandler from '../../components/ErrorHandler/ErrorHandler';
 import './Feed.css';
-import { URL_POSTS, URL_PREFIX } from '../Utils';
+import { URL_POSTS, URL_PREFIX } from '../../utils';
 
 class Feed extends Component {
   state = {
