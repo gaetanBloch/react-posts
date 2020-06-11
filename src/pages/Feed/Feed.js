@@ -129,7 +129,11 @@ class Feed extends Component {
       method = 'PUT';
     }
 
-    fetch(url, { method, body: formData })
+    fetch(url, {
+      method, body: formData, headers: {
+        'Authorization': 'Bearer ' + this.props.token
+      }
+    })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
           throw new Error('Creating or editing a post failed!');
@@ -180,7 +184,12 @@ class Feed extends Component {
 
   deletePostHandler = postId => {
     this.setState({ postsLoading: true });
-    fetch(URL_PREFIX + URL_POSTS + '/' + postId, { method: 'DELETE' })
+    fetch(URL_PREFIX + URL_POSTS + '/' + postId, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': 'Bearer ' + this.props.token
+      }
+    })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
           throw new Error('Deleting a post failed!');
