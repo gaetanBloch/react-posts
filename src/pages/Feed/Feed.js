@@ -86,7 +86,7 @@ class Feed extends Component {
     event.preventDefault();
     fetch(URL_PREFIX + URL_AUTH + 'status',
       {
-        method: 'PUT',
+        method: 'PATCH',
         body: JSON.stringify({ status: this.state.status }),
         headers: {
           'Content-type': 'application/json',
