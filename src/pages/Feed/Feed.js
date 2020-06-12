@@ -23,7 +23,7 @@ class Feed extends Component {
   };
 
   componentDidMount() {
-    fetch(URL_PREFIX + URL_AUTH + 'users/' + this.props.userId + '/status',
+    fetch(URL_PREFIX + URL_AUTH + 'status',
       {
         headers: {
           'Authorization': 'Bearer ' + this.props.token
