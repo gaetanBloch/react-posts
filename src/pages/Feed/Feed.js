@@ -8,7 +8,7 @@ import Paginator from '../../components/Paginator/Paginator';
 import Loader from '../../components/Loader/Loader';
 import ErrorHandler from '../../components/ErrorHandler/ErrorHandler';
 import './Feed.css';
-import { URL_POSTS, URL_PREFIX } from '../../utils';
+import { URL_AUTH, URL_POSTS, URL_PREFIX } from '../../utils';
 
 class Feed extends Component {
   state = {
@@ -23,7 +23,12 @@ class Feed extends Component {
   };
 
   componentDidMount() {
-    fetch('URL')
+    fetch(URL_PREFIX + URL_AUTH + 'users/' + this.props.userId + '/status',
+      {
+        headers: {
+          'Authorization': 'Bearer ' + this.props.token
+        }
+      })
       .then(res => {
         if (res.status !== 200) {
           throw new Error('Failed to fetch user status.');
