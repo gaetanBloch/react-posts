@@ -84,7 +84,7 @@ class Feed extends Component {
 
   statusUpdateHandler = event => {
     event.preventDefault();
-    fetch(URL_PREFIX + URL_AUTH + 'users/' + this.props.userId + '/status',
+    fetch(URL_PREFIX + URL_AUTH + 'status',
       {
         method: 'PUT',
         body: JSON.stringify({ status: this.state.status }),
