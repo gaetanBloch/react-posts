@@ -84,7 +84,15 @@ class Feed extends Component {
 
   statusUpdateHandler = event => {
     event.preventDefault();
-    fetch('URL')
+    fetch(URL_PREFIX + URL_AUTH + 'users/' + this.props.userId + '/status',
+      {
+        method: 'PUT',
+        body: JSON.stringify({ status: this.state.status }),
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': 'Bearer ' + this.props.token
+        }
+      })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
           throw new Error('Can\'t update status!');
