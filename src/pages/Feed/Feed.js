@@ -43,7 +43,12 @@ class Feed extends Component {
 
     this.loadPosts();
 
-    openSocket(URL_PREFIX);
+    const socket = openSocket(URL_PREFIX);
+    socket.on('posts', data => {
+      if (data.action === 'create') {
+        this.addPost(data.post);
+      }
+    })
   }
 
   addPost = post => {
