@@ -48,7 +48,7 @@ class Feed extends Component {
       if (data.action === 'create') {
         this.addPost(data.post);
       }
-    })
+    });
   }
 
   addPost = post => {
@@ -62,6 +62,17 @@ class Feed extends Component {
         posts: updatedPosts,
         totalPosts: prevState.totalPosts + 1
       };
+    });
+  };
+
+  updatePost = post => {
+    this.setState(prevState => {
+      const updatedPosts = [...prevState.posts];
+      const updatedPostIndex = updatedPosts.findIndex(p => p._id === post._id);
+      if (updatedPostIndex > -1) {
+        updatedPosts[updatedPostIndex] = post;
+      }
+      return { posts: updatedPosts };
     });
   };
 
